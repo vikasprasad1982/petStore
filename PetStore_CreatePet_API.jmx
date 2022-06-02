@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="error_count" elementType="Argument">
+            <stringProp name="Argument.name">error_count</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="response_time_total" elementType="Argument">
+            <stringProp name="Argument.name">response_time_total</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="request_count" elementType="Argument">
+            <stringProp name="Argument.name">request_count</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="error_count_threshold" elementType="Argument">
+            <stringProp name="Argument.name">error_count_threshold</stringProp>
+            <stringProp name="Argument.value">${__P(error_count,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="avg_resp_threshold" elementType="Argument">
+            <stringProp name="Argument.name">avg_resp_threshold</stringProp>
+            <stringProp name="Argument.value">${__P(avg_resp_threshold,300)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="number_of_iterations" elementType="Argument">
+            <stringProp name="Argument.name">number_of_iterations</stringProp>
+            <stringProp name="Argument.value">${__P(number_of_iterations,20)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="target_test_duration" elementType="Argument">
+            <stringProp name="Argument.name">target_test_duration</stringProp>
+            <stringProp name="Argument.value">${__P(target_test_duration,10000)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${number_of_iterations}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration">10</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create_Pet" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;id&quot;: 0,&#xd;
+  &quot;category&quot;: {&#xd;
+    &quot;id&quot;: 0,&#xd;
+    &quot;name&quot;: &quot;string&quot;&#xd;
+  },&#xd;
+  &quot;name&quot;: &quot;${__RandomString(8,abcdefghijklmnopqrstuvwxyz,petName)}&quot;,&#xd;
+  &quot;photoUrls&quot;: [&#xd;
+    &quot;string&quot;&#xd;
+  ],&#xd;
+  &quot;tags&quot;: [&#xd;
+    {&#xd;
+      &quot;id&quot;: 0,&#xd;
+      &quot;name&quot;: &quot;string&quot;&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;status&quot;: &quot;available&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">petstore.swagger.io</stringProp>
+          <stringProp name="HTTPSampler.port">443</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/v2/pet</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="TestPlan.comments">This request create a new pet for the store</stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">accept</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings"/>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <PreciseThroughputTimer guiclass="TestBeanGUI" testclass="PreciseThroughputTimer" testname="Precise Throughput Timer" enabled="true">
+            <doubleProp>
+              <name>allowedThroughputSurplus</name>
+              <value>1.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="batchSize">1</intProp>
+            <intProp name="batchThreadDelay">0</intProp>
+            <longProp name="duration">10</longProp>
+            <intProp name="exactLimit">10000</intProp>
+            <longProp name="randomSeed">0</longProp>
+            <doubleProp>
+              <name>throughput</name>
+              <value>120.0</value>
+              <savedValue>0.0</savedValue>
+            </doubleProp>
+            <intProp name="throughputPeriod">60</intProp>
+          </PreciseThroughputTimer>
+          <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="cacheKey">false</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">//import java.util.Date;
+//import java.time.*;
+//import java.lang.Long;	
+
+int error_count = Integer.parseInt(vars.get(&quot;error_count&quot;));
+int response_time_total = Integer.parseInt(vars.get(&quot;response_time_total&quot;));
+int request_count = Integer.parseInt(vars.get(&quot;request_count&quot;));
+int avg_response_time = 0;
+int error_count_threshold = Integer.parseInt(vars.get(&quot;error_count_threshold&quot;));
+int avg_resp_threshold = Integer.parseInt(vars.get(&quot;avg_resp_threshold&quot;));
+int number_of_iterations = Integer.parseInt(vars.get(&quot;number_of_iterations&quot;));
+
+long test_start_time = Long.valueOf(vars.get(&quot;TESTSTART.MS&quot;));
+long target_test_duration = Long.valueOf(vars.get(&quot;target_test_duration&quot;));
+//long timestamp = System.currentTimeMillis();
+
+
+response_time_total += prev.getTime(); //to add the response time or prev requests
+request_count++; //increment the request count on every request
+error_count+=(!prev.isSuccessful()? 1 : 0); //verify if there is an error on previous request
+
+//Checking the error count 
+if(error_count &gt; error_count_threshold){
+	
+	log.info(&quot;TEST FAILED!! The error count exceed more that one&quot;);
+	prev.setStopTest(true);
+}
+
+//Calculating and validating the average response time when reached to specific number of iterations
+
+if (request_count == number_of_iterations){
+	
+	avg_response_time = response_time_total/request_count;
+	
+	if(avg_response_time &gt; avg_resp_threshold){
+		
+		log.info(&quot;TEST FAILED!! Average Response Time &quot;+avg_response_time.toString()+&quot; Exceed 300ms &quot;);
+		prev.setStopTest(true);
+	}
+}
+
+
+/*attempted to validate the test duration and fail the test when it is more than 10 sec.*/
+
+//	 Date date = new Date();
+//	 System.out.println(date.getTime()); 
+
+//if (System.currentTimeInMillis() &lt; (test_start_time + target_test_duration)){
+//
+//		log.info(&quot;TEST FAILED!! Test duration exceeded more than &quot;+target_test_duration.toString()+&quot;.&quot;);
+//		log.info(&quot;Number of Iterations performed &quot;+request_count.toString()+&quot;.&quot;);
+//		log.info(&quot;Average Response Time for all samples was &quot;+avg_response_time.toString()+&quot;.&quot;);
+//		prev.setStopTest(true);
+//}
+
+
+vars.put(&quot;error_count&quot;, error_count.toString());
+vars.put(&quot;response_time_total&quot;, response_time_total.toString());
+vars.put(&quot;request_count&quot;, request_count.toString());</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
