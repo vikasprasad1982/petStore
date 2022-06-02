@@ -1,6 +1,8 @@
 # petStore
 For 86400 Test Assessment
 
+### This test is custom made for single threading. For Multi-threading we might need to use plugins and change bit of code in JSR223 post processor.
+
 ## Pre-Requiste
 
 - Jmeter 5.4.3
